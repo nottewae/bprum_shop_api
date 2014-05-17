@@ -23,11 +23,13 @@ module BprumShopApi
         false
       end
     end
+
     def signRequest(params)
       arr=params[:request_body].sort
       params[:request_body]=arr.to_h
       Digest::SHA2.hexdigest(params[:request_body].to_json+@remote_key)
     end
+
     def reguestProcessor(params)
       hash=params
       hash[:sign]=signRequest(params)
@@ -52,5 +54,6 @@ module BprumShopApi
         return false
       end
     end
+    
   end
 end
