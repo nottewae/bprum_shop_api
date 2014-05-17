@@ -31,7 +31,7 @@ module BprumShopApi
       log_write("signature of this respond:\n"+request["sign"])
       if mysign==request["sign"]
         log_write("this request is valid")
-        return request["re quest_body"]
+        return request["request_body"]
       else
         log_write("this request is invalid")
         false
