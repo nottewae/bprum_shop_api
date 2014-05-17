@@ -17,6 +17,7 @@ module BprumShopApi
     end
     def log_write(message)
       @number_of_message += 1
+      puts @number_of_message.tos + ": \t" + message + "\n"
       @out_file.write( @number_of_message.tos + ": \t" + message + "\n")
       log_write("Log started logfile is appdir/log/api.log".white)
     end
