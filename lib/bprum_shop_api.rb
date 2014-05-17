@@ -17,8 +17,8 @@ module BprumShopApi
     end
     def log_write(message)
       @number_of_message += 1
-      puts @number_of_message.tos + ": \t" + message + "\n"
-      @out_file.write( @number_of_message.tos + ": \t" + message + "\n")
+      puts @number_of_message.to_s + ": \t" + message + "\n"
+      @out_file.write( @number_of_message.to_s + ": \t" + message + "\n")
 
     end
     def checkRequest(request)
