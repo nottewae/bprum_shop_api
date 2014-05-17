@@ -54,6 +54,6 @@ module BprumShopApi
         return false
       end
     end
-    
+
   end
 end
