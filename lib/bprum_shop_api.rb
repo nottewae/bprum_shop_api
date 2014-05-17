@@ -1,7 +1,7 @@
 #require "bprum_shop_api/version"
 require 'bcrypt'
 require 'json'
-require 'term-ansicolor'
+
 module BprumShopApi
   class Api
 
