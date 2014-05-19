@@ -55,7 +55,7 @@ module BprumShopApi
       hash=hash.to_json
       result={}
       Net::HTTP.start(@remote_host) do |http|
-        req = Net::HTTP::Post.new(@remote_path,@remote_port)
+        req = Net::HTTP::Post.new(@remote_path)
         req.set_content_type('text/json', { 'charset' => @charset })
         req.body = hash
         response = http.request(req)
