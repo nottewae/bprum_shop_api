@@ -31,10 +31,10 @@ module BprumShopApi
       order_hash=arr.to_h
       mysign=Digest::SHA2.hexdigest(order_hash.to_json+@my_key)
       log_write("signature of this respond must be:\n"+mysign)
-      log_write("signature of this respond:\n"+request["sign"])
-      if mysign==request["sign"]
+      log_write("signature of this respond:\n"+parsed["sign"])
+      if mysign==parsed["sign"]
         log_write("this request is valid")
-        return request["request_body"]
+        return parsed["request_body"]
       else
         log_write("this request is invalid")
         false
