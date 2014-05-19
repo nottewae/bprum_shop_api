@@ -29,7 +29,7 @@ module BprumShopApi
       arr=parsed["request_body"].sort
       log_write("sorted content:\n"+arr.inspect)
       order_hash=arr.to_h
-      mysign=Digest::SHA2.hexdigest(order_hash.to_json+@my_key)
+      mysign=Digest::SHA2.hexdigest(order_hash.to_json+@my_key).to_s
       log_write("signature of this respond must be:\n"+mysign)
       log_write("signature of this respond:\n"+parsed["sign"])
       if mysign==parsed["sign"]
