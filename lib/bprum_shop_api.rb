@@ -1,4 +1,4 @@
-#require "bprum_shop_api/version"
+require "bprum_shop_api/version"
 require 'bcrypt'
 require 'json'
 
@@ -17,10 +17,11 @@ module BprumShopApi
     end
     def log_write(message)
       @number_of_message += 1
-      puts @number_of_message.to_s + ": \t" + message + "\n"
+      puts @number_of_message.to_s + ": \t" + message + " - in: "+Time.now.to_s+"  \n"
       @out_file.write( @number_of_message.to_s + ": \t" + message + "\n")
 
     end
+
     def checkRequest(request)
       log_write("cheking request: \n\t|type::"+request.class+" \n\t|content::"+request.to_s)
       parsed=JSON.parse(request)
@@ -44,7 +45,7 @@ module BprumShopApi
       log_write("now generating signature for new request")
       arr=params[:request_body].sort
       params[:request_body]=arr.to_h
-      Digest::SHA2.hexdigest(params[:request_body].to_json+@remote_key)
+      Digest::SHA2.hexdigest(params[:request_body].to_json+@remote_key).to_s
     end
 
     def reguestProcessor(params)
