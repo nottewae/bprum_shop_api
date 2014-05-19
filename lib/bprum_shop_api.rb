@@ -5,8 +5,9 @@ require 'json'
 module BprumShopApi
   class Api
 
-    def initialize(my_key,remote_key,remote_path,remote_host,charset='utf-8')
+    def initialize(my_key,remote_key,remote_path,remote_host,remote_port=80,charset='utf-8')
       @my_key = my_key
+      @remote_port = remote_port
       @remote_key = remote_key
       @remote_path = remote_path
       @remote_host = remote_host
@@ -48,13 +49,13 @@ module BprumShopApi
       Digest::SHA2.hexdigest(params[:request_body].to_json+@remote_key).to_s
     end
 
-    def reguestProcessor(params)
+    def requestProcessor(params)
       hash=params
       hash[:sign]=signRequest(params)
       hash=hash.to_json
       result={}
       Net::HTTP.start(@remote_host) do |http|
-        req = Net::HTTP::Post.new(@remote_path)
+        req = Net::HTTP::Post.new(@remote_path,@remote_port)
         req.set_content_type('text/json', { 'charset' => @charset })
         req.body = hash
         response = http.request(req)
