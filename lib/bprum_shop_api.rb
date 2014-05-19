@@ -20,11 +20,10 @@ module BprumShopApi
       @number_of_message += 1
       puts @number_of_message.to_s + ": \t" + message + " - in: "+Time.now.to_s+"  \n"
       @out_file.write( @number_of_message.to_s + ": \t" + message + "\n")
-
     end
 
     def checkRequest(request)
-      log_write("cheking request: \n\t|type::"+request.class+" \n\t|content::"+request.to_s)
+      log_write("cheking request: \n\t|type::"+request.class.to_s+" \n\t|content::"+request.to_s)
       parsed=JSON.parse(request)
       log_write("respond JSON is:\n"+parsed.inspect)
       arr=parsed["request_body"].sort
