@@ -27,7 +27,7 @@ module BprumShopApi
       parsed=JSON.parse(request)
       log_write("respond JSON is:\n"+parsed.inspect)
       arr=parsed["request_body"].sort
-      log_wite("sorted content:\n"+arr.inspect)
+      log_write("sorted content:\n"+arr.inspect)
       order_hash=arr.to_h
       mysign=Digest::SHA2.hexdigest(order_hash.to_json+@my_key)
       log_write("signature of this respond must be:\n"+mysign)
