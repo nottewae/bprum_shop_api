@@ -1,4 +1,4 @@
-# ecoding: utf-8
+# encoding: utf-8
 require "bprum_shop_api/version"
 require 'bcrypt'
 require 'json'
