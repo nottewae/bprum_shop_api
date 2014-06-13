@@ -24,6 +24,7 @@ module BprumShopApi
     end
 
     def checkRequest(request)
+      begin
       log_write("cheking request: \n\t|type::"+request.class.to_s+" \n\t|content::"+request.to_s)
       parsed=JSON.parse(request.force_encoding('UTF-8'))
       log_write("respond JSON is:\n"+parsed.inspect)
@@ -40,6 +41,10 @@ module BprumShopApi
         log_write("this request is invalid")
         false
       end
+      rescue $ERROR_INFO
+        log_write("fatal "+$ERROR_INFO+"::"+$ERROR_POSITION)
+      end
+
     end
 
     def signRequest(params)
