@@ -60,8 +60,8 @@ module BprumShopApi
       hash=hash.to_json
       result={}
       Net::HTTP.start(@remote_host) do |http|
-        req = Net::HTTP::Post.new(@remote_path)
-        req.set_content_type('text/json', { 'charset' => 'UTF-8' })
+        req = Net::HTTP::Post.new(@remote_path,initheader = {'Content-Type' =>'application/json','Encoding'=>'utf-8'})
+
         req.body = hash
         response = http.request(req)
         if response.class.to_s == 'Net::HTTPOK'
