@@ -62,7 +62,7 @@ module BprumShopApi
         if response.class.to_s == 'Net::HTTPOK'
           puts response.inspect
           puts response.value
-          result = JSON.parse(response.body)
+          result = JSON.parse(response.body.force_encoding('UTF-8').encoding('UTF-8'))
         else
           puts response.inspect
         end
