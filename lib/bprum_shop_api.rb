@@ -25,7 +25,7 @@ module BprumShopApi
 
     def checkRequest(request)
       log_write("cheking request: \n\t|type::"+request.class.to_s+" \n\t|content::"+request.to_s)
-      parsed=JSON.parse(request.force_encoding('UTF-8').encoding('UTF-8'))
+      parsed=JSON.parse(request.force_encoding('UTF-8'))
       log_write("respond JSON is:\n"+parsed.inspect)
       arr=parsed["request_body"].sort
       log_write("sorted content:\n"+arr.inspect)
@@ -62,7 +62,7 @@ module BprumShopApi
         if response.class.to_s == 'Net::HTTPOK'
           puts response.inspect
           puts response.value
-          result = JSON.parse(response.body.force_encoding('UTF-8').encoding('UTF-8'))
+          result = JSON.parse(response.body)
         else
           puts response.inspect
         end
