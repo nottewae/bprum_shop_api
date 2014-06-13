@@ -67,6 +67,7 @@ module BprumShopApi
         if response.class.to_s == 'Net::HTTPOK'
           puts response.inspect
           puts response.value
+          puts "returned BODY is:",response.body
           result = JSON.parse(response.body)
         else
           puts response.inspect
