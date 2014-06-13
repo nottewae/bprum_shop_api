@@ -25,7 +25,7 @@ module BprumShopApi
 
     def checkRequest(request)
       log_write("cheking request: \n\t|type::"+request.class.to_s+" \n\t|content::"+request.to_s)
-      parsed=JSON.parse(request)
+      parsed=JSON.parse(request.force_encoding('UTF-8').encoding('UTF-8'))
       log_write("respond JSON is:\n"+parsed.inspect)
       arr=parsed["request_body"].sort
       log_write("sorted content:\n"+arr.inspect)
