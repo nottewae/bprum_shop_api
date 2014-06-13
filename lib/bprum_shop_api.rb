@@ -1,3 +1,4 @@
+# ecoding: utf-8
 require "bprum_shop_api/version"
 require 'bcrypt'
 require 'json'
@@ -30,8 +31,8 @@ module BprumShopApi
       log_write("sorted content:\n"+arr.inspect)
       order_hash=arr.to_h
       mysign=Digest::SHA2.hexdigest(order_hash.to_json+@my_key).to_s
-      log_write("signature of this respond must be:\n"+mysign)
-      log_write("signature of this respond:\n"+parsed["sign"])
+      log_write("signature of this request must be:\n"+mysign)
+      log_write("signature of this request:\n"+parsed["sign"])
       if mysign==parsed["sign"]
         log_write("this request is valid")
         return parsed["request_body"]

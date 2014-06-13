@@ -5,4 +5,4 @@ gemspec
   gem 'bcrypt'
   gem 'json'
   gem 'multi_json'
-  gem 'term/ansicolor'
+  gem 'term-ansicolor'
