@@ -74,7 +74,7 @@ module BprumShopApi
         end
       end
       if result["access"]=="granted"
-        result["body"]
+        result
       else
         return false
       end
