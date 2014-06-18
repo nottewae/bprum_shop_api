@@ -1,4 +1,4 @@
 module BprumShopApi
-  VERSION = "0.2.30"
+  VERSION = "0.3"
 
 end
