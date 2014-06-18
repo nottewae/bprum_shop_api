@@ -43,6 +43,7 @@ module BprumShopApi
       end
       rescue Exception => e
         log_write("fatal "+e.message+"::"+e.backtrace.inspect)
+
       end
 
     end
@@ -81,8 +82,10 @@ module BprumShopApi
       end
       if result["access"]=="granted" or result["access"]=="unknow"
         result
+      elsif result["access"]=="denied"
+        result
       else
-        return false
+        false
       end
     end
 
