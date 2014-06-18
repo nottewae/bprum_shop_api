@@ -41,8 +41,8 @@ module BprumShopApi
         log_write("this request is invalid")
         false
       end
-      rescue $ERROR_INFO
-        log_write("fatal "+$ERROR_INFO+"::"+$ERROR_POSITION)
+      rescue Exception => e
+        log_write("fatal "+e.message+"::"+e.backtrace.inspect)
       end
 
     end
@@ -63,17 +63,23 @@ module BprumShopApi
         req = Net::HTTP::Post.new(@remote_path,initheader = {'Content-Type' =>'application/json','Encoding'=>'utf-8'})
 
         req.body = hash
-        response = http.request(req)
-        if response.class.to_s == 'Net::HTTPOK'
-          puts response.inspect
-          puts response.value
-          puts "returned BODY is:",response.body
-          result = JSON.parse(response.body)
-        else
-          puts response.inspect
+        begin
+          response = http.request(req)
+          if response.class.to_s == 'Net::HTTPOK'
+            puts response.inspect
+            puts response.value
+            puts "returned BODY is:",response.body
+            result = JSON.parse(response.body)
+          else
+            puts response.inspect
+          end
+        rescue
+          result["access"]="unknow"
+          result["reason"]="connection lost"
         end
+
       end
-      if result["access"]=="granted"
+      if result["access"]=="granted" or result["access"]=="unknow"
         result
       else
         return false
