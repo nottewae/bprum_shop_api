@@ -25,24 +25,27 @@ module BprumShopApi
 
     def checkRequest(request)
       begin
-      log_write("cheking request: \n\t|type::"+request.class.to_s+" \n\t|content::"+request.to_s)
-      parsed=JSON.parse(request.force_encoding('UTF-8'))
-      log_write("respond JSON is:\n"+parsed.inspect)
-      arr=parsed["request_body"].sort
-      log_write("sorted content:\n"+arr.inspect)
-      order_hash=arr.to_h
-      mysign=Digest::SHA2.hexdigest(order_hash.to_json+@my_key).to_s
-      log_write("signature of this request must be:\n"+mysign)
-      log_write("signature of this request:\n"+parsed["sign"])
-      if mysign==parsed["sign"]
-        log_write("this request is valid")
-        return parsed["request_body"]
-      else
-        log_write("this request is invalid")
-        false
-      end
+        log_write("cheking request: \n\t|type::"+request.class.to_s+" \n\t|content::"+request.to_s)
+        parsed=JSON.parse(request.force_encoding('UTF-8'))
+        log_write("respond JSON is:\n"+parsed.inspect)
+        arr=parsed["request_body"].sort
+        log_write("sorted content:\n"+arr.inspect)
+        #order_hash=arr.to_h
+        order_hash=arr.inject({}) do |r, s|
+          r.merge!({s[0] => s[1]})
+        end
+        mysign=Digest::SHA2.hexdigest(order_hash.to_json+@my_key).to_s
+        log_write("signature of this request must be:\n"+mysign)
+        log_write("signature of this request:\n"+parsed["sign"])
+        if mysign==parsed["sign"]
+          log_write("this request is valid")
+          return parsed["request_body"]
+        else
+          log_write("this request is invalid")
+          false
+        end
       rescue Exception => e
-        log_write("fatal "+e.message+"::"+e.backtrace.inspect)
+        log_write("fatal "+e.message+"::\n"+e.backtrace.join("\n"))
 
       end
 
